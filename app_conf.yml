@@ -1,0 +1,9 @@
+version: 1
+post_list:
+  url: http://localhost:8090/list
+post_book:
+  url: http://localhost:8090/book
+events:
+  hostname: acit-3855vm.westus3.cloudapp.azure.com
+  port: 9092
+  topic: events

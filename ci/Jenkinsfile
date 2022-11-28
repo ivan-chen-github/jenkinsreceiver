@@ -1,0 +1,2 @@
+@Library("ci-functions") _
+python_build('ivan-receiver', 'latest', 8080)

@@ -1,0 +1,129 @@
+---
+openapi: 3.0.0
+info:
+  title: Renting API
+  description: This is a simple for renting houses
+  contact:
+    email: you@your-company.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: /
+tags:
+- name: seller
+  description: For when listing a house for rent
+- name: renter
+  description: For when renting a house
+paths:
+  /list:
+    post:
+      tags:
+      - seller
+      summary: list a house for rent
+      description: Adds a house to the system
+      operationId: app.listHouse
+      requestBody:
+        description: House to list
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListHouse'
+      responses:
+        "201":
+          description: listing created
+        "400":
+          description: invalid input, object invalid
+  /book:
+    post:
+      tags:
+      - renter
+      summary: book a house
+      description: book house
+      operationId: app.bookHouse
+      requestBody:
+        description: House to book
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookHouse'
+      responses:
+        "201":
+          description: booked a house
+        "400":
+          description: invalid input, object invalid
+components:
+  schemas:
+    ListHouse:
+      required:
+      - address
+      - availability_end
+      - availability_start
+      - bedroom_qty
+      - house_rating
+      - listing_id
+      - price
+      type: object
+      properties:
+        listing_id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        bedroom_qty:
+          type: integer
+          example: 1
+        address:
+          type: string
+          example: 555 Seymour St
+        availability_start:
+          type: string
+          format: date-time
+          example: 2022-07-24 18:42:59.111755
+        availability_end:
+          type: string
+          format: date-time
+          example: 2022-08-28 18:42:59.111755
+        house_rating:
+          type: integer
+          example: 5
+        price:
+          type: integer
+          example: 200
+    BookHouse:
+      required:
+      - booking_id
+      - listing_id
+      - price
+      - rent_end
+      - rent_start
+      - renter_rating
+      type: object
+      properties:
+        booking_id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        listing_id:
+          type: string
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        price:
+          type: integer
+          example: 200
+        rent_start:
+          type: string
+          format: date-time
+          example: 2022-07-24 18:42:59.111755
+        rent_end:
+          type: string
+          format: date-time
+          example: 2022-08-28 18:42:59.111755
+        days_rented:
+          type: integer
+          example: 3
+        renter_rating:
+          type: integer
+          example: 4
+        additional_comments:
+          type: string
+          example: Extra comment
